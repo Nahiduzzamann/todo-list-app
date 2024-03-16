@@ -21,6 +21,7 @@ const TaskItem = ({ task }) => {
           style={{
             marginLeft: "10px",
             textDecoration: task.completed ? "line-through" : "none",
+            color:task.completed ? "#131313" : "#000000",
           }}
         >
           {task.title}
@@ -40,6 +41,7 @@ const TaskItem = ({ task }) => {
           <span
             style={{
               marginLeft: "10px",
+              color:task.completed ? "#131313" : "#000000",
             }}
           >
             ( Completed )
