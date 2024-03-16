@@ -47,22 +47,31 @@ const TaskItem = ({ task }) => {
     <div
       className={` ${
         task.completed ? "bg-gray-100" : "bg-blue-100"
-      } mb-2 flex justify-between items-center px-4 py-2 rounded`}
+      } mb-2 md:flex justify-between items-center px-4 py-2 rounded`}
     >
-      <div>
-        {task.completed ? (
-          <Tooltip placement="topRight" title="Task Completed">
-            <Checkbox checked={task.completed} onChange={handleToggleStatus} />
-          </Tooltip>
-        ) : (
-          <Tooltip placement="topRight" title="Mark as Done!">
-            <Checkbox checked={task.completed} onChange={handleToggleStatus} />
-          </Tooltip>
-        )}
+      <div className="max-w-[500px] flex items-center gap-2">
+        <div>
+          {task.completed ? (
+            <Tooltip placement="topRight" title="Task Completed">
+              <Checkbox
+                checked={task.completed}
+                onChange={handleToggleStatus}
+              />
+            </Tooltip>
+          ) : (
+            <Tooltip placement="topRight" title="Mark as Done!">
+              <Checkbox
+                checked={task.completed}
+                onChange={handleToggleStatus}
+              />
+            </Tooltip>
+          )}
+        </div>
 
-        <span
+       <div>
+       <span
           style={{
-            marginLeft: "10px",
+           
             textDecoration: task.completed ? "line-through" : "none",
             color: task.completed ? "#131313" : "#000000",
           }}
@@ -90,8 +99,9 @@ const TaskItem = ({ task }) => {
             ( Completed )
           </span>
         )}
+       </div>
       </div>
-      <div>
+      <div className="my-2 md:my-0 flex justify-end md:block">
         {task.completed || (
           <Button className="border border-blue-500" onClick={handleEditTask}>
             Edit
@@ -117,6 +127,7 @@ const TaskItem = ({ task }) => {
         <Form layout="vertical">
           <Form.Item label="Task Title">
             <Input
+              maxLength={100}
               name="title"
               value={editedTask.title}
               onChange={handleChange}

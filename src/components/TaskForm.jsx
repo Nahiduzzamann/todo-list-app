@@ -19,10 +19,10 @@ const TaskForm = () => {
   };
 
   return (
-    <div className="bg-gray-200 py-3 md:py-6 rounded-lg flex flex-col items-center my-6 mx-2">
+    <div className="bg-gray-200 py-3 md:py-6 rounded-lg flex flex-col items-center my-6 mx-2 px-2">
       <Form form={form} layout="vertical" onFinish={onFinish} style={{ maxWidth: '300px', width: '100%' }}>
         <Form.Item name="title" rules={[{ required: true, message: 'Please enter task title' }]}>
-          <Input placeholder="Enter task title" />
+          <Input maxLength={100} placeholder="Enter task title" />
         </Form.Item>
         <Form.Item name="priority" initialValue="low">
           <Select style={{ width: '100%' }} onChange={value => setPriority(value)}>
