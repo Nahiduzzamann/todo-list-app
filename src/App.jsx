@@ -1,13 +1,29 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import "./App.css";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
 import { addTask } from "./store/todoSlice";
 import 'antd/dist/reset.css';
+import Header from "./components/Header";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/firebase";
 
 const App = () => {
+  const [user,setUser]=useState(null)
+  const [update,setUpdate]=useState()
   const dispatch = useDispatch();
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user)
+      } else {
+        setUser(null)
+      }
+    });
+  
+    return () => unsubscribe();
+  }, [update]);
 
   useEffect(() => {
     const savedTasks = JSON.parse(localStorage.getItem("tasks"));
@@ -18,12 +34,10 @@ const App = () => {
 
   return (
     <div>
-      <div className="bg-blue-500  py-4 px-2">
-        <h1 className="container mx-auto text-white text-3xl">Todo List App</h1>
-      </div>
+      <Header user={user} setUpdate={setUpdate}></Header>
 
       <div className="container mx-auto">
-        <TaskForm></TaskForm>
+        <TaskForm user={user}></TaskForm>
         <TaskList />
       </div>
     </div>
