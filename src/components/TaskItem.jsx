@@ -133,7 +133,7 @@ const TaskItem = ({ task }) => {
               onChange={handleChange}
             />
           </Form.Item>
-          <Form.Item name="priority" initialValue="low">
+          <Form.Item name="priority" initialValue={editedTask.priority}>
             <Select
               style={{ width: "100%" }}
               onChange={(value) =>
