@@ -7,13 +7,16 @@ const TaskList = () => {
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter(task => task.completed).length;
 
+  const incompleteTasks = tasks.filter(task => !task.completed);
+  const sortedTasks = [...incompleteTasks, ...tasks.filter(task => task.completed)];
+
   return (
     <div className='px-2'>
       <h1 className='text-blue-500 text-xl md:text-3xl underline'>Task List</h1>
       <div className='m-2 md:m-4'>
         <p>Total Tasks: {totalTasks}</p>
         <p>Completed Tasks: {completedTasks}</p>
-        {tasks.map(task => (
+        {sortedTasks.map(task => (
           <TaskItem key={task.id} task={task} />
         ))}
       </div>

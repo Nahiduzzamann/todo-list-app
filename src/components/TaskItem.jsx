@@ -1,7 +1,16 @@
-import  { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteTask, toggleTaskStatus, editTask } from '../store/todoSlice';
-import { Button, Checkbox, Tag, Modal, Form, Input, Select } from 'antd';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { deleteTask, toggleTaskStatus, editTask } from "../store/todoSlice";
+import {
+  Button,
+  Checkbox,
+  Tag,
+  Modal,
+  Form,
+  Input,
+  Select,
+  Tooltip,
+} from "antd";
 const { Option } = Select;
 const TaskItem = ({ task }) => {
   const dispatch = useDispatch();
@@ -35,9 +44,22 @@ const TaskItem = ({ task }) => {
   };
 
   return (
-    <div className={` ${task.completed ? 'bg-gray-100' : 'bg-blue-100'} mb-2 flex justify-between items-center px-4 py-2 rounded`}>
+    <div
+      className={` ${
+        task.completed ? "bg-gray-100" : "bg-blue-100"
+      } mb-2 flex justify-between items-center px-4 py-2 rounded`}
+    >
       <div>
-        <Checkbox checked={task.completed} onChange={handleToggleStatus} />
+        {task.completed ? (
+          <Tooltip placement="topRight" title="Task Completed">
+            <Checkbox checked={task.completed} onChange={handleToggleStatus} />
+          </Tooltip>
+        ) : (
+          <Tooltip placement="topRight" title="Mark as Done!">
+            <Checkbox checked={task.completed} onChange={handleToggleStatus} />
+          </Tooltip>
+        )}
+
         <span
           style={{
             marginLeft: "10px",
@@ -70,34 +92,48 @@ const TaskItem = ({ task }) => {
         )}
       </div>
       <div>
-        <Button className='border border-blue-500' onClick={handleEditTask}>
-          Edit
-        </Button>
-        <Button danger onClick={handleDeleteTask} style={{ marginLeft: '10px' }}>
+        {task.completed || (
+          <Button className="border border-blue-500" onClick={handleEditTask}>
+            Edit
+          </Button>
+        )}
+        <Button
+          danger
+          onClick={handleDeleteTask}
+          style={{ marginLeft: "10px" }}
+        >
           Delete
         </Button>
       </div>
       <Modal
-      okButtonProps={{
-        className:'text-black'
-      }}
+        okButtonProps={{
+          className: "text-black",
+        }}
         title="Edit Task"
         visible={isModalVisible}
         onOk={handleSaveEdit}
         onCancel={handleCancelEdit}
-        
       >
         <Form layout="vertical">
           <Form.Item label="Task Title">
-            <Input name="title" value={editedTask.title} onChange={handleChange} />
+            <Input
+              name="title"
+              value={editedTask.title}
+              onChange={handleChange}
+            />
           </Form.Item>
           <Form.Item name="priority" initialValue="low">
-          <Select style={{ width: '100%' }}  onChange={value => setEditedTask({ ...editedTask, 'priority': value })}>
-            <Option value="low">Low</Option>
-            <Option value="medium">Medium</Option>
-            <Option value="high">High</Option>
-          </Select>
-        </Form.Item>
+            <Select
+              style={{ width: "100%" }}
+              onChange={(value) =>
+                setEditedTask({ ...editedTask, priority: value })
+              }
+            >
+              <Option value="low">Low</Option>
+              <Option value="medium">Medium</Option>
+              <Option value="high">High</Option>
+            </Select>
+          </Form.Item>
         </Form>
       </Modal>
     </div>
