@@ -1,6 +1,6 @@
-import { useDispatch } from 'react-redux';
-import { deleteTask, toggleTaskStatus } from '../store/todoSlice';
-import { Button, Checkbox, Tag } from 'antd';
+import { useDispatch } from "react-redux";
+import { deleteTask, toggleTaskStatus } from "../store/todoSlice";
+import { Button, Checkbox, Tag } from "antd";
 
 const TaskItem = ({ task }) => {
   const dispatch = useDispatch();
@@ -14,11 +14,41 @@ const TaskItem = ({ task }) => {
   };
 
   return (
-    <div>
-      <Checkbox checked={task.completed} onChange={handleToggleStatus} />
-      <span style={{ marginLeft: '10px', textDecoration: task.completed ? 'line-through' : 'none' }}>{task.title}</span>
-      <Tag color={task.priority === 'high' ? 'red' : task.priority === 'medium' ? 'orange' : 'green'}>{task.priority}</Tag>
-      <Button danger onClick={handleDeleteTask}>Delete</Button>
+    <div className={` ${task.completed ?'bg-gray-100':'bg-blue-100'} mb-2 flex justify-between items-center px-4 py-2 rounded`}>
+      <div>
+        <Checkbox checked={task.completed} onChange={handleToggleStatus} />
+        <span
+          style={{
+            marginLeft: "10px",
+            textDecoration: task.completed ? "line-through" : "none",
+          }}
+        >
+          {task.title}
+        </span>
+        <Tag
+          color={
+            task.priority === "high"
+              ? "red"
+              : task.priority === "medium"
+              ? "orange"
+              : "green"
+          }
+        >
+          {task.priority}
+        </Tag>
+        {task.completed && (
+          <span
+            style={{
+              marginLeft: "10px",
+            }}
+          >
+            ( Completed )
+          </span>
+        )}
+      </div>
+      <Button danger onClick={handleDeleteTask}>
+        Delete
+      </Button>
     </div>
   );
 };
