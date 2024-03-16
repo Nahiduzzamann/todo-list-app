@@ -1,32 +1,43 @@
-
 import  { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { addTask } from '../store/todoSlice';
+import { Form, Input, Select, Button } from 'antd';
+
+const { Option } = Select;
 
 const TaskForm = () => {
   const dispatch = useDispatch();
-  const [title, setTitle] = useState('');
+  const [form] = Form.useForm();
   const [priority, setPriority] = useState('low');
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    const newTask = { id: uuid(), title, priority, completed: false };
+  const onFinish = values => {
+    const newTask = { id: uuid(), title: values.title, priority, completed: false };
     dispatch(addTask(newTask));
-    setTitle('');
+    form.resetFields();
     setPriority('low');
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" value={title} onChange={e => setTitle(e.target.value)} placeholder="Enter task title" required />
-      <select value={priority} onChange={e => setPriority(e.target.value)}>
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-        <option value="high">High</option>
-      </select>
-      <button type="submit">Add Task</button>
-    </form>
+    <div className="bg-gray-200 py-6 rounded-lg flex flex-col items-center my-6 px-2">
+      <Form form={form} layout="vertical" onFinish={onFinish} style={{ maxWidth: '300px', width: '100%' }}>
+        <Form.Item name="title" rules={[{ required: true, message: 'Please enter task title' }]}>
+          <Input placeholder="Enter task title" />
+        </Form.Item>
+        <Form.Item name="priority" initialValue="low">
+          <Select style={{ width: '100%' }} onChange={value => setPriority(value)}>
+            <Option value="low">Low</Option>
+            <Option value="medium">Medium</Option>
+            <Option value="high">High</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" style={{ width: '100%' }} className='text-black'>
+            Add Task
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
   );
 };
 

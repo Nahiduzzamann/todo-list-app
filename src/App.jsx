@@ -4,7 +4,7 @@ import "./App.css";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
 import { addTask } from "./store/todoSlice";
-
+import 'antd/dist/reset.css';
 
 const App = () => {
   const dispatch = useDispatch();
