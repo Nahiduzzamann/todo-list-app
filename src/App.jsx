@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Layout, Typography } from 'antd';
 import { addTask } from './store/todoSlice';
 import './App.css';
+import TaskForm from './components/TaskForm';
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -24,12 +25,7 @@ const App = () => {
         <Title style={{ color: 'white' }}>Todo List App</Title>
       </Header>
       <Content className="content">
-        {/* <TaskForm /> */}
-        Task Form
-        {/* <FilterDropdown /> */}
-        FilterDropdown
-        {/* <TaskList /> */}
-        TaskList
+       <TaskForm></TaskForm>
       </Content>
     </Layout>
   );
