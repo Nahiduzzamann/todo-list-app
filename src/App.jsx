@@ -1,11 +1,11 @@
-// App.js
+
 import  { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Layout, Typography } from 'antd';
 import './App.css';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
-import { addTaskToStore } from './store/store';
+import { addTask } from './store/todoSlice';
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -16,7 +16,7 @@ const App = () => {
   useEffect(() => {
     const savedTasks = JSON.parse(localStorage.getItem('tasks'));
     if (savedTasks) {
-      savedTasks.forEach(task => addTaskToStore(task));
+      savedTasks.forEach(task => dispatch(addTask(task)));
     }
   }, [dispatch]);
 
