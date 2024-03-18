@@ -23,7 +23,7 @@ This is a simple Todo List application built using React(vite) and Redux Toolkit
 
 ## Live Link
 
-Visit the <a href="https://example.com" target="_blank">live demo</a> of the Todo List App.
+Visit the <a href="https://todo-list-app-c7c25.web.app/" target="_blank">live demo</a> of the Todo List App.
 
 ## Getting Started
 
